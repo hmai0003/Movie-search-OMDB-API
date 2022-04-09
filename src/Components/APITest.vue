@@ -1,46 +1,65 @@
 <template>    
-    <div>
-        <search-bar @send-search="updateSearch"></search-bar>
-    </div>
-    <section>
-        <p v-if="title">{{title}}</p>
-        <img v-if="image" :src="image" width="500" height="600">
+    <section class="left-side">
+        <ul>
+            <li v-for="result in results" :key="result.imdbID" @click="updateRightSide(result)">
+                <img :src="result.Poster" :alt="result.Title" width="60" height="60">
+                <p>{{result.Title}}</p>
+                <p>{{result.Year}}</p>
+            </li>
+        </ul>
+    </section>
+    <section v-if="selectedRecord" class="right-side">
+        <p>{{selectedRecord.Title}}</p>
     </section>
 </template>
 
 <script>
-import SearchBar from './SearchBar.vue';
 export default {
-  components: { SearchBar }, 
+    props: {
+        searchTerm: {
+            type: String,
+            default: ''
+        }
+    },
     data() {
         return {
             apiKey: '4ea78e5d',
             url: 'http://www.omdbapi.com/?apikey=',
             searchParam: '',
             image: '',
-            title: ''
+            title: '',
+            results: new Array,
+            selectedRecord: {}
         }
     },
     methods: {
-        showDetails() {
-            let url = this.url + this.apiKey + (this.searchParam ? '&t=' + this.searchParam : '');
+        showDetails(val) {
+            let url = this.url + this.apiKey + (val ? '&s=' + val : '');
+            // this.axios.get(url).then((response) => {
+            //     console.log(response.data)
+            // })
             fetch(url)
             .then(data => {
                 return data.json();
             })
             .then(post => {
-                if (post) {
-                    this.image = post.Poster;
-                    this.title = post.Title
+                if (post.Search) {
+                    this.results = post.Search;
                 }
-                console.log(post.Title);
             });
         },
-        updateSearch(value) {
-            this.searchParam = value;
-            console.log(this.searchParam);
-            this.showDetails();
+        updateRightSide(result) {
+            this.selectedRecord = result;
+            console.log(this.selectedRecord);
         }
     }
 }
 </script>
+<style>
+ .left-side{
+     display: flex;
+ }
+ .right-side{
+     display: flex;
+ }
+</style>

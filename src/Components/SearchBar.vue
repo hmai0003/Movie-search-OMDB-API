@@ -31,8 +31,11 @@ export default {
  .search-bar {
      display: flex;
  }
- input  {
+ input{
      border: none;
-     padding-left: 5px;
+     margin-left: 5px;
+     color: white;
+     background-color: gray;
+     
  }
 </style>
