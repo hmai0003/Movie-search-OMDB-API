@@ -19,9 +19,8 @@ export default {
         }
     },
     methods: {  
-        getSearch(value) {
-            this.searchParam = value;
-            this.$emit('pass-value',this.searchParam);
+        getSearch() {
+            this.$emit('pass-value');
         }
     }
 }

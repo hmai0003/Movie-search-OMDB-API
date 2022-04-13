@@ -13,15 +13,10 @@ export default {
             default: 'Search...'
         }
     },
-    data() {
-        return {
-            searchParam: ''
-        }
-    },
     methods: {
         updateSearchValue(event) {
-            this.searchParam = event.target.value;
-            this.$emit('send-search',this.searchParam);
+            this.$store.dispatch('updateSearchValue',{value: event.target.value});
+            this.$emit('send-search');
         }
     }
 }

@@ -1,31 +1,29 @@
 <template>    
     <div>
         <TopNav @pass-value="getSearch"/>
-        <APITest ref="result" :search-term="searchTerm"/>
+        <MainContent ref="result"/>
     </div>
 </template>
 
 <script>
-import TopNav from './Components/TopNav.vue'
-import APITest from './Components/APITest';
+import TopNav from './Components/UI/TopNav.vue'
+import MainContent from './Components/MainContent';
 
 
 export default {
     components: { 
         TopNav, 
-        APITest
+        MainContent
     },
 
     data() {
         return {
-            searchTerm: ''
         }
     },
 
     methods: {
-        getSearch(value) {
-            this.searchTerm = value;
-            this.$refs.result.showDetails(this.searchTerm);
+        getSearch() {
+            this.$refs.result.showDetails();
         }
     }
 }
