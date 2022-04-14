@@ -1,3 +1,4 @@
+import 'mdb-vue-ui-kit/css/mdb.min.css'
 import { createApp } from 'vue';
 import AlertIcon from 'vue-ionicons/dist/ios-search.vue'
 import axios from 'axios'
