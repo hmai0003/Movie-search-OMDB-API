@@ -3,11 +3,11 @@ import { createStore } from "vuex";
 const store =  createStore({
     state() {
         return {
-            apiKey: 'ae1703d5',
-            movies: null,
-            movie: {},
             searchTerm: '',
-            allValuesFetched: false
+            allValuesFetched: false,
+            yearFrom: '1970',
+            yearTo: '2022',
+            type: 'any'
         };
     },
     mutations: {
@@ -19,13 +19,29 @@ const store =  createStore({
                 state.allValuesFetched = false;
             }
         },
-        searchForValue() {
-
+        updateAllFetched(state,payload) {
+            state.allValuesFetched = payload;
+        },
+        updateRangeFilter(state, payload) {
+            state.yearFrom = payload.left;
+            state.yearTo = payload.right;
+        },
+        updateTypeFilter(state, payload) {
+            state.type = payload;
         }
     },
     actions: {
         updateSearchValue(context,payload) {
-            context.commit('updateSearchValue',payload.value)
+            context.commit('updateSearchValue',payload.value);
+        },
+        updateAllFetched(context,payload) {
+            context.commit('updateAllFetched',payload.value);
+        },
+        updateRangeFilter(context, payload) {
+            context.commit('updateRangeFilter', {left:payload.left, right:payload.right});
+        },
+        updateTypeFilter(context, payload) {
+            context.commit('updateTypeFilter', payload.value);
         }
     },
     getters: {
@@ -33,7 +49,16 @@ const store =  createStore({
             return state.searchTerm;
         },
         allValuesFetched(state) {
-            return state.allValuesFetched
+            return state.allValuesFetched;
+        },
+        yearFromValue(state) {
+            return state.yearFrom;
+        },
+        yearToValue(state) {
+            return state.yearTo;
+        },
+        typeValue(state) {
+            return state.type;
         }
     }
 });
