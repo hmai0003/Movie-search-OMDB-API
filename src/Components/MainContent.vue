@@ -148,8 +148,9 @@ export default {
 
 <style>
 .main-display{
+    font-size: 1.6rem;
     display: flex;
-    margin-right: 20px;
-    max-height: 95vh;
+    margin-right: 2rem;
+    max-height: 91vh;
 }
 </style>

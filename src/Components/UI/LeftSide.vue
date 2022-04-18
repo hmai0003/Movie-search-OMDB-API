@@ -3,10 +3,15 @@
         <p class="total" v-if="totalResults > 0"> {{ totalResults }} Results </p>
         <ul class="scrolli">
             <li v-for="(result,index) in results" :id="index" :key="result.imdbID" @click="updateRightSide(result)">
-                <div class="card">
-                    <img :src="result.Poster" :alt="result.Title" width="60" height="60">
-                    <p>{{result.Title}}</p>
-                    <p>{{result.Year}}</p>
+                <div class="custom-card">
+                    <div class="image">
+                        <img v-if="result.Poster !== 'N/A'" :src="result.Poster" :alt="result.Title" width="50" height="50">
+                        <img v-else src="../../assets/video-movie-placeholder-image-grey.png" :alt="result.Title" width="50" height="50">
+                    </div>
+                    <div class="details">
+                        <p>{{result.Title}}</p>
+                        <p>{{result.Year}}</p>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -64,18 +69,52 @@ export default {
 .left-side{
     overflow: auto;
     position: relative; 
-    width: 40%;
+    width: 30%;
     max-height: 100vh;
 }
 .total{
-    margin-top: 20px;
-    margin-bottom: 50px;
-    margin-left: 20px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    margin-left: 2rem;
+    font-size: 1.3rem;
 }
-.card{
-    border-bottom: 1px solid gray;
-    padding-left: 20px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+.custom-card{
+    display: flex;
+    border-bottom: 0.1rem solid gray;
+    padding-left: 2.5rem;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    border-radius: 0rem;
 }
+.custom-card:hover{
+    background-color: rgba(128, 128, 128, 0.2);
+}
+ul{
+    list-style: none;
+    padding: 0rem;
+}
+.image{
+    padding-right: 1.3rem;
+}
+.details p:nth-child(2) {
+    font-size: 1rem;
+    color: gray;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
 </style>

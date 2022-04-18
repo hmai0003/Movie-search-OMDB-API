@@ -1,13 +1,13 @@
 <template>
    <div class="top-nav">
         <search-bar  @send-search="getSearch"/>
-        <div class="right-item">
-            <p v-show="leftValue">{{leftValue}}</p>
-            <div>
+        <div class="right-item">   
+            <div class="slider">
+                <p v-show="leftValue">{{leftValue}}</p>
                 <Slider v-model="value" :max="max" :min="min" tooltip-position="bottom" style="width:150px;" :tooltips="false" @update="updateValue(value)"></Slider>
+                <p v-show="rightValue">{{rightValue}}</p>
             </div>
-             <p v-show="rightValue">{{rightValue}}</p>
-             <div>
+             <div class="radios">
                 <input type="radio" id="allValues" name="typeFilter" value="any" v-model="type"/>
                 <label for="allValues">Any</label>
 
@@ -74,17 +74,31 @@ export default {
 
 <style src="@vueform/slider/themes/default.css"></style>
 <style>
-    .top-nav{
+    .top-nav,
+    .right-item,
+    .slider,
+    .radios
+    {
         display: flex;
-        height: 30px;
+        align-items: center;
+    }
+    .top-nav{
+        padding: 1rem 2rem;
         background-color: gray;
         align-items: center;
         justify-content: space-between;
+        font-size: 1.6rem;
     }
     .right-item{
-        display: flex;
+        column-gap: 1rem;
         justify-content: flex-end;
         align-items: center;
-        margin-right: 100px;
+        margin-right: 2rem;
+    }
+    .radios{
+        column-gap: 0.8rem;
+    }
+    .slider{
+        column-gap: 2.4rem;
     }
 </style>
