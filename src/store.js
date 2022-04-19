@@ -3,11 +3,13 @@ import { createStore } from "vuex";
 const store =  createStore({
     state() {
         return {
+            allData: [],
             searchTerm: '',
             allValuesFetched: false,
             yearFrom: '1970',
             yearTo: '2022',
-            type: 'any'
+            type: 'any',
+            watchlist: []
         };
     },
     mutations: {
@@ -28,6 +30,17 @@ const store =  createStore({
         },
         updateTypeFilter(state, payload) {
             state.type = payload;
+        },
+        addToWatchlist(state,payload) {
+            state.watchlist.push(payload);
+        },
+        removeFromWatchlist(state,payload) {
+            for (var i=0; i < state.watchlist.length; i++) {
+                if (payload.imdbID === state.watchlist[i].imdbID) {
+                    state.watchlist.splice(i,1);
+                    break;
+                }
+            }
         }
     },
     actions: {
@@ -42,6 +55,12 @@ const store =  createStore({
         },
         updateTypeFilter(context, payload) {
             context.commit('updateTypeFilter', payload.value);
+        },
+        addToWatchlist(context,payload) {
+            context.commit('addToWatchlist', payload);
+        },
+        removeFromWatchlist(context,payload) {
+            context.commit('removeFromWatchlist', payload);
         }
     },
     getters: {
@@ -59,6 +78,9 @@ const store =  createStore({
         },
         typeValue(state) {
             return state.type;
+        },
+        watchlistValue(state) {
+            return state.watchlist
         }
     }
 });

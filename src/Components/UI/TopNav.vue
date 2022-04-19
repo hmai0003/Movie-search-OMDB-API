@@ -1,24 +1,35 @@
 <template>
    <div class="top-nav">
         <search-bar  @send-search="getSearch"/>
-        <div class="right-item">   
-            <div class="slider">
-                <p v-show="leftValue">{{leftValue}}</p>
-                <Slider v-model="value" :max="max" :min="min" tooltip-position="bottom" style="width:150px;" :tooltips="false" @update="updateValue(value)"></Slider>
-                <p v-show="rightValue">{{rightValue}}</p>
+        <div class="right-item">
+            <div class="slider-content">
+                <p>YEAR</p>
+                <div class="slider">
+                    <p v-show="leftValue">{{leftValue}}</p>
+                    <Slider class="slider-gray" v-model="value" :max="max" :min="min" tooltip-position="bottom" style="width:150px;" :tooltips="false" @update="updateValue(value)"></Slider>
+                    <p v-show="rightValue">{{rightValue}}</p>
+                </div>
+            </div>   
+             <div class="radio-content">
+                 <p>TYPE</p>
+                <div class="radios">
+                    <input type="radio" id="allValues" name="typeFilter" value="any" v-model="type"/>
+                    <label for="allValues">Any</label>
+
+                    <input type="radio" id="movie" name="typeFilter" value="movie" v-model="type"/>
+                    <label for="movie">Movies</label>
+
+                    <input type="radio" id="series" name="typeFilter" value="series" v-model="type"/>
+                    <label for="series">Series</label>
+
+                    <input type="radio" id="episode" name="typeFilter" value="episode" v-model="type"/>
+                    <label for="episode">Episodes</label>
+                </div> 
             </div>
-             <div class="radios">
-                <input type="radio" id="allValues" name="typeFilter" value="any" v-model="type"/>
-                <label for="allValues">Any</label>
-
-                <input type="radio" id="movie" name="typeFilter" value="movie" v-model="type"/>
-                <label for="movie">Movies</label>
-
-                <input type="radio" id="series" name="typeFilter" value="series" v-model="type"/>
-                <label for="series">Series</label>
-
-                <input type="radio" id="episode" name="typeFilter" value="episode" v-model="type"/>
-                <label for="episode">Episodes</label>
+            <div class="watchlist-button" @click="navigate">
+                <router-link to="/watchlist">
+                    <button class="button button5">Watchlist</button>
+                </router-link>
             </div>
         </div>
     </div>
@@ -73,7 +84,7 @@ export default {
 </script>
 
 <style src="@vueform/slider/themes/default.css"></style>
-<style>
+<style scoped>
     .top-nav,
     .right-item,
     .slider,
@@ -81,6 +92,22 @@ export default {
     {
         display: flex;
         align-items: center;
+    }
+    .button {
+        color: white;
+        padding: 8px;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .button5 {
+        background-color: gray;
+        color: white;
+        border: 2px solid white;
+    }
+    .button:hover {
+        background-color: #9f9999;
     }
     .top-nav{
         padding: 1rem 2rem;
@@ -90,10 +117,19 @@ export default {
         font-size: 1.6rem;
     }
     .right-item{
+        color: white;
         column-gap: 1rem;
         justify-content: flex-end;
         align-items: center;
         margin-right: 2rem;
+        padding-bottom: 1rem;
+    }
+    .radio-content .slider-content{
+        display: flex;
+        font-size: 1.3rem;
+    }
+    .slider-content {
+        padding-right: 2.5rem;
     }
     .radios{
         column-gap: 0.8rem;
@@ -101,4 +137,17 @@ export default {
     .slider{
         column-gap: 2.4rem;
     }
+    .slider-gray {
+        --slider-connect-bg: #D3D3D3;
+        --slider-handle-ring-color: gray;
+    }
+    input[type=radio] {
+        width: 18px;
+        height: 18px;
+    }
+    label, p{
+        font-size: 1.3rem;
+    }
+
+
 </style>

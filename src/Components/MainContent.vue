@@ -1,4 +1,5 @@
 <template>
+    <TopNav @pass-value="showDetails" @update-range-filter="updateRange" @update-type="updateType"></TopNav>
     <div class="main-display">
         <LeftSide @intersect="intersect" :results="results" :total-results="total" @update-right="fetchTitleDetails"></LeftSide>
         <RightSide :selected-record="selectedRecord"></RightSide>
@@ -7,11 +8,13 @@
 </template>
 
 <script>
+import TopNav from './UI/TopNav.vue'
 import LeftSide from './UI/LeftSide.vue';
 import RightSide from './UI/RightSide.vue';
 
 export default {
     components: { 
+        TopNav,
         LeftSide,
         RightSide
     },
@@ -110,7 +113,7 @@ export default {
             var toValue = parseInt(this.toDate);
             var fromValue = parseInt(this.fromDate);
             filteredResult = this.results.filter(result => {
-                if (result.Year.indexOf('-') > -1) {
+                if (result.Year.includes('-') > -1) {
                     var splitValue = result.Year.split('-');
                     yearValue = parseInt(splitValue[0]);
                 } else {
@@ -150,7 +153,6 @@ export default {
 .main-display{
     font-size: 1.6rem;
     display: flex;
-    margin-right: 2rem;
     max-height: 91vh;
 }
 </style>

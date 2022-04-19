@@ -19,8 +19,6 @@
 </template>
 
 <script>
-
-
 export default {
     props: {
         results: {
@@ -80,7 +78,7 @@ export default {
 }
 .custom-card{
     display: flex;
-    border-bottom: 0.1rem solid gray;
+    border-bottom: 0.1rem solid #d8cbcb;
     padding-left: 2.5rem;
     padding-bottom: 2rem;
     padding-top: 2rem;
