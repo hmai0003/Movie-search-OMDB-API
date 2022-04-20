@@ -2,7 +2,7 @@
     <section class="left-side">
         <p class="total" v-if="totalResults > 0"> {{ totalResults }} Results </p>
         <ul class="scrolli">
-            <li v-for="(result,index) in results" :id="index" :key="result.imdbID" @click="updateRightSide(result)">
+            <li v-for="(result,index) in leftContent" :id="index" :key="result.imdbID" @click="updateRightSide(result)">
                 <div class="custom-card">
                     <div class="image">
                         <img v-if="result.Poster !== 'N/A'" :src="result.Poster" :alt="result.Title" width="50" height="50">
@@ -24,42 +24,57 @@ export default {
         results: {
             type: Array,
             default: null
-        },
-        totalResults: {
-            type: String,
-            default: ''
         }
     },
     data() {
         return {
             selectedRecord: null,
-            scrollUl: null
+            scrollUl: null,
+            start: 0,
+            end: 10
+        }
+    },
+    computed: {
+        leftContent() {
+            return this.$store.getters.getFilteredData;
+        },
+        totalResults() {
+            return this.$store.getters.getTotal;
         }
     },
     methods: {
         updateRightSide(result) {
             this.$emit('update-right', result.imdbID)
-        },
-        attempt() {
-            // this.$nextTick(() => {
-            //     this.observer = new IntersectionObserver(([entry]) => {
-            //         if (entry && !entry.isIntersecting) return
-            //             this.$emit("intersect");
-            //         });
-                
-            //     var abc = document.querySelector(".scrolli:last-child").children;
-            //     var d = abc[(abc.length - 1)];
-            //     this.observer.observe(d);
-            // })
         }
+        // showData() {
+        //     var tempArray = [];
+        //     for (var i = this.start; i < this.end; i++) {
+        //         this.leftContent.push(this.results[i]);
+        //     }
+        //     this.start = this.end;
+        //     this.end = this.end + 10;
+        //     this.leftContent = JSON.parse(JSON.stringify(tempArray));
+        // }
+        // attempt() {
+        //     this.$nextTick(() => {
+        //         this.observer = new IntersectionObserver(([entry]) => {
+        //             if (entry && !entry.isIntersecting) return
+        //                 this.showData();
+        //             });
+        //         var abc = document.querySelector(".scrolli:last-child").children;
+        //         var d = abc[(abc.length - 1)];
+        //         this.observer.observe(d);
+        //     });
+        // }
+    },
+    watch: {
+        // results(newVal) {
+        //     if (newVal.length > 0) {
+        //         this.showData();
+        //         this.attempt();
+        //     }
+        // }
     }
-    // watch: {
-    //     results(newVal) {
-    //         if (newVal.length > 0) {
-    //             this.attempt();
-    //         }
-    //     }
-    // }
 }
 </script>
 

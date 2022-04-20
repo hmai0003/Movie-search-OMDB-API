@@ -77,16 +77,13 @@ export default {
         updateValue(value) {
             this.leftValue = value[0];
             this.rightValue = value[1];
-            this.$store.dispatch('updateRangeFilter',{left: this.leftValue, right: this.rightValue});
-            this.$emit('updateRangeFilter',this.leftValue,this.rightValue);
-
+            this.$store.dispatch('updateRangeFilter',{value: this.type,left: this.leftValue, right: this.rightValue});
         }
     },
     watch: {
         type(newVal, oldVal) {
             if (newVal !== oldVal) {
-                this.$store.dispatch('updateTypeFilter',{value: newVal})
-                this.$emit('updateType',newVal);
+                this.$store.dispatch('updateTypeFilter',{value: newVal,left: this.leftValue, right: this.rightValue})
             }
         }
     }

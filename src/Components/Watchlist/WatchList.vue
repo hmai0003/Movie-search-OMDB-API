@@ -58,15 +58,4 @@
     display: flex;
     flex-direction: column;
 }
-/* .custom-card{
-    display: flex;
-    border-bottom: 0.1rem solid #d8cbcb;
-    padding-left: 2.5rem;
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-    border-radius: 0rem;
-}
-.custom-card:hover{
-    background-color: rgba(128, 128, 128, 0.2);
-} */
 </style>
