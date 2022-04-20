@@ -87,10 +87,6 @@ export default {
 .custom-card:hover{
     background-color: rgba(128, 128, 128, 0.2);
 }
-ul{
-    list-style: none;
-    padding: 0rem;
-}
 .image{
     padding-right: 1.3rem;
 }

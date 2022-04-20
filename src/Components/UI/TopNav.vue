@@ -1,5 +1,5 @@
 <template>
-   <div class="top-nav">
+   <div v-if="usedFrom === 'Main'" class="top-nav">
         <search-bar  @send-search="getSearch"/>
         <div class="right-item">
             <div class="slider-content">
@@ -26,11 +26,18 @@
                     <label for="episode">Episodes</label>
                 </div> 
             </div>
-            <div class="watchlist-button" @click="navigate">
+            <div class="watchlist-button">
                 <router-link to="/watchlist">
                     <button class="button button5">Watchlist</button>
                 </router-link>
             </div>
+        </div>
+    </div>
+    <div v-else class="top-nav">
+        <div class="home-button">
+            <router-link to="/home">
+                <button class="button button5">Home</button>
+            </router-link>
         </div>
     </div>
 </template>
@@ -46,7 +53,10 @@ export default {
      },
 
     props: {
-
+        usedFrom: {
+            type: String,
+            default: 'Main'
+        }
     },
     data() {
         return {
