@@ -55,12 +55,10 @@ const store =  createStore({
                     if (yearValue >= fromValue && yearValue <= toValue && result.Type === payload.value) {
                         return result
                     }
-                }
-                
+                } 
             });
             state.filteredData = filteredResult;
             state.total = state.filteredData.length;
-
         },
         addToWatchlist(state,payload) {
             state.watchlist.push(payload);
@@ -128,13 +126,14 @@ const store =  createStore({
                     if (response.data.Search) {
                         if (state.allData.length === 0) {
                             commit('searchForData',{data:response.data.Search, value: true});
-                            commit('updateTotal',response.data.totalResults)
+                            commit('updateTotal',response.data.totalResults);
                         } else {
                             commit('searchForData',{data: [...state.allData, ...response.data.Search], value: true});
                         }
-                        commit('updatePage',true)
+                        commit('updatePage',true);
                         dispatch('searchForData');
                     } else {
+                        commit('updateRangeFilter',{value: state.type, left: state.yearFrom, right: state.yearTo});
                         commit('updateAllFetched',true);
                     }
                 });

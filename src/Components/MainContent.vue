@@ -1,5 +1,5 @@
 <template>
-    <TopNav @pass-value="showDetails" @update-range-filter="updateRange"></TopNav>
+    <TopNav @pass-value="showDetails"></TopNav>
     <div class="main-display">
         <LeftSide @intersect="intersect" @update-right="fetchTitleDetails"></LeftSide>
         <RightSide :selected-record="selectedRecord"></RightSide>
