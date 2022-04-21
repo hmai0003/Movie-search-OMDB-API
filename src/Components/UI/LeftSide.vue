@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         leftContent() {
-            return this.$store.getters.getFilteredData;
+            return this.$store.getters.getLazy;
         },
         totalResults() {
             return this.$store.getters.getTotal;
@@ -45,35 +45,28 @@ export default {
     methods: {
         updateRightSide(result) {
             this.$emit('update-right', result.imdbID)
+        },
+        attempt() {
+            this.$nextTick(() => {
+                this.observer = new IntersectionObserver(([entry]) => {
+                    if (entry && !entry.isIntersecting) return
+                        this.$store.dispatch('lazyLoadData');
+                    });
+                var all = document.querySelector(".scrolli:last-child").children;
+                var lastChild = all[(all.length - 1)];
+                this.observer.observe(lastChild);
+            });
         }
-        // showData() {
-        //     var tempArray = [];
-        //     for (var i = this.start; i < this.end; i++) {
-        //         this.leftContent.push(this.results[i]);
-        //     }
-        //     this.start = this.end;
-        //     this.end = this.end + 10;
-        //     this.leftContent = JSON.parse(JSON.stringify(tempArray));
-        // }
-        // attempt() {
-        //     this.$nextTick(() => {
-        //         this.observer = new IntersectionObserver(([entry]) => {
-        //             if (entry && !entry.isIntersecting) return
-        //                 this.showData();
-        //             });
-        //         var abc = document.querySelector(".scrolli:last-child").children;
-        //         var d = abc[(abc.length - 1)];
-        //         this.observer.observe(d);
-        //     });
-        // }
     },
     watch: {
-        // results(newVal) {
-        //     if (newVal.length > 0) {
-        //         this.showData();
-        //         this.attempt();
-        //     }
-        // }
+        leftContent: {
+            deep: true,
+            handler(newVal) {
+                if (newVal.length > 0) {
+                    this.attempt();
+                }
+            }
+        }
     }
 }
 </script>

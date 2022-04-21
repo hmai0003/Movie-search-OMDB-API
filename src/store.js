@@ -16,7 +16,10 @@ const store =  createStore({
             url: 'http://www.omdbapi.com/?apikey=',
             page: 1,
             finalUrl: '',
-            total: ''
+            total: '',
+            lazy:[],
+            startIndex: 0,
+            lastIndex: 10
         };
     },
     mutations: {
@@ -78,6 +81,7 @@ const store =  createStore({
             }  else {
                 state.allData = [];
                 state.filteredData = [];
+                state.lazy= [];
             }
         },
         updateTotal(state,payload) {
@@ -88,6 +92,31 @@ const store =  createStore({
                 state.page += 1;
             } else if (!payload) {
                 state.page = 1;
+            }
+        },
+        lazyLoadData(state,payload) {
+            if (payload) {
+                state.lazy = [];
+                state.lastIndex = 10;
+                state.startIndex = 0;
+            }
+            if (state.filteredData.length !== state.lazy.length) {
+                for (var i=state.startIndex; i < state.lastIndex; i++) {
+                    if (state.filteredData[i]) {
+                        state.lazy.push(state.filteredData[i]);
+                    } else {
+                        state.lastIndex = 10;
+                        state.startIndex = 0;
+                        break;
+                    }
+                }
+                if (state.filteredData.length === state.lazy.length) {
+                    state.lastIndex = 10;
+                    state.startIndex = 0;
+                } else {
+                    state.startIndex = state.lastIndex;
+                    state.lastIndex += 10;
+                }
             }
         }
     },
@@ -107,11 +136,14 @@ const store =  createStore({
         updateAllFetched(context,payload) {
             context.commit('updateAllFetched',payload.value);
         },
-        updateRangeFilter(context, payload) {
-            context.commit('updateRangeFilter', payload);
+        updateRangeFilter({ dispatch,commit},payload) {
+            commit('updateRangeFilter', payload);
+            dispatch('lazyLoadData',true);
         },
-        updateTypeFilter(context, payload) {
-            context.commit('updateRangeFilter', payload);
+        updateTypeFilter({dispatch, commit},payload) {
+            commit('updateRangeFilter', payload);
+            dispatch('lazyLoadData',true);
+            
         },
         addToWatchlist(context,payload) {
             context.commit('addToWatchlist', payload);
@@ -135,12 +167,16 @@ const store =  createStore({
                     } else {
                         commit('updateRangeFilter',{value: state.type, left: state.yearFrom, right: state.yearTo});
                         commit('updateAllFetched',true);
+                        dispatch('lazyLoadData');
                     }
                 });
             } else {
                 commit('searchForData',{data: [], value: false});
                 commit('updateTotal', '');
             }
+        },
+        lazyLoadData({ commit},payload) {
+            commit('lazyLoadData',payload);
         }
     },
     getters: {
@@ -170,6 +206,9 @@ const store =  createStore({
         },
         getFilteredData(state) {
             return state.filteredData
+        },
+        getLazy(state) {
+            return state.lazy;
         }
     }
 });
