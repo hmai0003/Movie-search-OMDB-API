@@ -28,7 +28,7 @@
             </div>
             <div class="watchlist-button">
                 <router-link to="/watchlist">
-                    <button class="button button5">Watchlist</button>
+                    <button class="button button5" style="margin-top: 5px;">Watchlist</button>
                 </router-link>
             </div>
         </div>
@@ -154,6 +154,48 @@ export default {
     }
     label, p{
         font-size: 1.3rem;
+    }
+    [type='radio'] {
+        display: none;
+    }
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label
+    {
+        position: relative;
+        padding-left: 25px;
+        cursor: pointer;
+        line-height: 20px;
+        display: inline-block;
+    }
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border: 2px solid white;
+        border-radius: 100%;
+    }
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: white;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border-radius: 100%;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+    [type="radio"]:not(:checked) + label:after {
+        opacity: 0;
+    }
+    [type="radio"]:checked + label:after {
+        opacity: 1;
     }
 
 

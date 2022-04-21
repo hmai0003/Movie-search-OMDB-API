@@ -1,5 +1,5 @@
 <template>
-    <section class="left-side">
+    <section v-if="leftContent.length > 0" class="left-side">
         <p class="total" v-if="totalResults > 0"> {{ totalResults }} Results </p>
         <ul class="scrolli">
             <li v-for="(result,index) in leftContent" :id="index" :key="result.imdbID" @click="updateRightSide(result)">

@@ -1,7 +1,8 @@
 <template>
     <section v-if="selectedRecord !== null" class="right-side" :class="{ 'border-left' : selectedRecord.Title}">
         <div class="top-content">
-            <img v-if="selectedRecord.Poster" :src="selectedRecord.Poster" :alt="selectedRecord.Title" width="182" height="259">
+            <img v-if="selectedRecord.Poster && selectedRecord.Poster !=='N/A'" :src="selectedRecord.Poster" :alt="selectedRecord.Title" width="182" height="259">
+            <img v-if="selectedRecord.Poster && selectedRecord.Poster ==='N/A'" src="../../assets/video-movie-placeholder-image-grey.png" :alt="selectedRecord.Title" width="182" height="259">
             <div class="top-side">
                 <div class="wishlist-button" v-if="selectedRecord.Title" @click="updateWatchlist">
                     <button v-if="!showAdded" class="button button5"><i class="far fa-bookmark"></i> Watchlist</button>
@@ -34,8 +35,7 @@
             <hr>
         </div>
         <div class="bottom-content">
-            <div v-if="selectedRecord.Ratings && selectedRecord.Ratings.length > 0">
-            <ul>
+            <ul v-if="selectedRecord.Ratings && selectedRecord.Ratings.length > 0">
                 <li v-for="(rating,index) in selectedRecord.Ratings" :key="index">
                     <div class="review">
                         <p> {{rating.Value}} </p>
@@ -43,7 +43,6 @@
                     </div>
                 </li>
             </ul>    
-        </div>
         </div>
 
     </section>
@@ -97,14 +96,16 @@ export default {
     overflow: hidden;
     padding-top: 20px;
     padding-left: 20px;
+    position: relative;
 }
 .border-left {
     border-left: 1px solid #d8cbcb;;
 }
 ul {
     list-style: none;
-    padding-left: 0rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    justify-items: center;
 }
 .button {
   color: white;
@@ -129,7 +130,7 @@ img{
     padding-right: 10px;
 }
 .mid-content{
-    padding-right: 46rem;
+    padding: 2rem 0;
 }
 .top-content{
     display: flex;
@@ -137,8 +138,7 @@ img{
 .top-side{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
+    justify-content: flex-end;
 }
 .top2{
     display: flex;
@@ -184,5 +184,10 @@ i{
 }
 button:hover {
     background-color: lightgray
+}
+.wishlist-button {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
 }
 </style>

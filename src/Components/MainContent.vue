@@ -72,6 +72,6 @@ export default {
 .main-display{
     font-size: 1.6rem;
     display: flex;
-    max-height: 91vh;
+    max-height: 86vh;
 }
 </style>
