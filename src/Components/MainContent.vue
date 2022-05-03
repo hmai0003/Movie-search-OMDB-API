@@ -1,6 +1,11 @@
 <template>
     <TopNav @pass-value="showDetails"></TopNav>
     <div class="main-display">
+        <div v-if="showSpinner" class="d-flex justify-content-center center-spin">
+            <div class="spinner-border" role="status">
+                 <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <LeftSide @intersect="intersect" @update-right="fetchTitleDetails"></LeftSide>
         <RightSide :selected-record="selectedRecord"></RightSide>
     </div>
@@ -47,6 +52,9 @@ export default {
         },
         getResults() {
             return this.$store.getters.getAllData;
+        },
+        showSpinner() {
+            return this.$store.getters.getSpinner;
         }
     },
     methods: {
@@ -73,5 +81,10 @@ export default {
     font-size: 1.6rem;
     display: flex;
     max-height: 86vh;
+}
+.center-spin{
+    position: absolute;
+    left: 50%;
+    top: 50%;
 }
 </style>

@@ -19,7 +19,8 @@ const store =  createStore({
             total: '',
             lazy:[],
             startIndex: 0,
-            lastIndex: 10
+            lastIndex: 10,
+            showSpinner: false
         };
     },
     mutations: {
@@ -118,6 +119,9 @@ const store =  createStore({
                     state.lastIndex += 10;
                 }
             }
+        },
+        alterSpinnerDisplay(state,payload) {
+            state.showSpinner = payload;
         }
     },
     actions: {
@@ -154,19 +158,23 @@ const store =  createStore({
         searchForData({ dispatch,commit,state }) {
             state.finalUrl = state.url + state.apiKey + ('&s=' + state.searchTerm + '&page=' + state.page);
             if (!state.allValuesFetched) {
+
                 axios.get(state.finalUrl).then((response) => {
                     if (response.data.Search) {
                         if (state.allData.length === 0) {
                             commit('searchForData',{data:response.data.Search, value: true});
                             commit('updateTotal',response.data.totalResults);
+                            commit('alterSpinnerDisplay',false);
                         } else {
                             commit('searchForData',{data: [...state.allData, ...response.data.Search], value: true});
+                            commit('alterSpinnerDisplay',true);
                         }
                         commit('updatePage',true);
                         dispatch('searchForData');
                     } else {
                         commit('updateRangeFilter',{value: state.type, left: state.yearFrom, right: state.yearTo});
                         commit('updateAllFetched',true);
+                        commit('alterSpinnerDisplay',false);
                         dispatch('lazyLoadData');
                     }
                 });
@@ -209,6 +217,9 @@ const store =  createStore({
         },
         getLazy(state) {
             return state.lazy;
+        },
+        getSpinner(state) {
+            return state.showSpinner;
         }
     }
 });
