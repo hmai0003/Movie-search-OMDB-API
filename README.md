@@ -29,3 +29,6 @@ column. On selecting an entry, the full details for the movie/series is displaye
 main (RHS) section of this display. There is also a “Watchlist”
 functionality, where a user can select add/remove a specific title from a list of saved
 titles.
+
+### Screenshots
+![Alt text](src/assets/Initial%20State.JPG?raw=true "Title")
