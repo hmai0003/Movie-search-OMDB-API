@@ -23,6 +23,12 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### App Description
+The challenge was to recreate the image below with the omdb api https://www.omdbapi.com/:
+![Alt text](src/assets/ombd-challenge-mockup.png.JPG?raw=true "Challenge")
+
+The main challenge in terms of logic here was implementing the year range filter because the challenge asks for a year range while the api only supports filtering based on one year.
+Intersection Api has been used here to display only 10 records to the users at a time and load more results as the user scrolls the left side list.
+
 The user types in a movie/series title, optionally selects filters in the top
 section of this display, which then filters the list of movies that are listed on the left-hand
 column. On selecting an entry, the full details for the movie/series is displayed in the
@@ -32,21 +38,22 @@ titles.
 
 ### Screenshots
 Initial State
-![Alt text](src/assets/Initial%20State.JPG?raw=true "Title")
+![Alt text](src/assets/Initial%20State.JPG?raw=true "Initial State")
 
 Left Side After Search
-![Alt text](src/assets/Left%20Side.JPG?raw=true "Title")
+![Alt text](src/assets/Left%20Side.JPG?raw=true "Left Side")
 
 Right Side after a reacord from the left side is clicked
-![Alt text](src/assets/All%20Content.JPG?raw=true "Title")
+![Alt text](src/assets/All%20Content.JPG?raw=true "Right Side")
 
 Filters in action
-![Alt text](src/assets/Filters.JPG?raw=true "Title")
+![Alt text](src/assets/Filters.JPG?raw=true "Filters")
 
-Wishlist
-![Alt text](src/assets/Wishlisted%20Movies.JPG?raw=true "Title")
+Watchlist
+![Alt text](src/assets/Wishlisted%20Movies.JPG?raw=true "Watchlist")
 
-![Alt text](src/assets/Wishlist.JPG?raw=true "Title")
+
+![Alt text](src/assets/Wishlist.JPG?raw=true "Watchlist2")
 
 
 
