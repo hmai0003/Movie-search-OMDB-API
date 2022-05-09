@@ -31,4 +31,22 @@ functionality, where a user can select add/remove a specific title from a list o
 titles.
 
 ### Screenshots
+Initial State
 ![Alt text](src/assets/Initial%20State.JPG?raw=true "Title")
+
+Left Side After Search
+![Alt text](src/assets/Left%20Side.JPG?raw=true "Title")
+
+Right Side after a reacord from the left side is clicked
+![Alt text](src/assets/All%20Content.JPG?raw=true "Title")
+
+Filters in action
+![Alt text](src/assets/Filters.JPG?raw=true "Title")
+
+Wishlist
+![Alt text](src/assets/Wishlisted%20Movies.JPG?raw=true "Title")
+
+![Alt text](src/assets/Wishlist.JPG?raw=true "Title")
+
+
+
