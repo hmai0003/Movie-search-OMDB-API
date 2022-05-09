@@ -24,7 +24,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### App Description
 The challenge was to recreate the image below with the omdb api https://www.omdbapi.com/:
-![Alt text](src/assets/ombd-challenge-mockup.png.JPG?raw=true "Challenge")
+![Alt text](src/assets/ombd-challenge-mockup.png?raw=true "Challenge")
 
 The main challenge in terms of logic here was implementing the year range filter because the challenge asks for a year range while the api only supports filtering based on one year.
 Intersection Api has been used here to display only 10 records to the users at a time and load more results as the user scrolls the left side list.
